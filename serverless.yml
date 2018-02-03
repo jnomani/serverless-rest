@@ -1,0 +1,38 @@
+service: api-service # NOTE: update this with your service name
+
+# Use serverless-webpack plugin to transpile ES6/ES7
+plugins:
+  - serverless-webpack
+
+# Enable auto-packing of external modules
+custom:
+  webpackIncludeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:*"
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
+functions:
+  hello:
+    handler: handler.main
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+
