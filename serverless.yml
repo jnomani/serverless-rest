@@ -28,11 +28,31 @@ provider:
 #  region: us-east-1
 
 functions:
-  hello:
+  get:
     handler: handler.main
     events:
       - http:
           path: /
           method: get
           cors: true
-
+  create:
+    handler: handler.main
+    events:
+      - http:
+          path: /
+          method: post
+          cors: true
+  update:
+    handler: handler.main
+    events:
+      - http:
+          path: /
+          method: put
+          cors: true
+  remove:
+    handler: handler.main
+    events:
+      - http:
+          path: /
+          method: delete
+          cors: true
